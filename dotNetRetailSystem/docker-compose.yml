@@ -1,0 +1,21 @@
+services:
+  catalogdb:
+    image: postgres
+
+  distributedcache:
+    image: redis
+
+  rs.yarpapigateway:
+    image: ${DOCKER_REGISTRY-}rsyarpapigateway
+    build:
+      context: .
+      dockerfile: RS.YarpApiGateway/Dockerfile
+
+  rs.shopservice:
+    image: ${DOCKER_REGISTRY-}rsshopservice
+    build:
+      context: .
+      dockerfile: RS.ShopService/Dockerfile
+
+volumes:
+  postgres_shop:

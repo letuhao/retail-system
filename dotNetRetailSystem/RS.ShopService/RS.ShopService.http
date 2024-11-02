@@ -1,0 +1,6 @@
+@RS.ShopService_HostAddress = http://localhost:5269
+
+GET {{RS.ShopService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
