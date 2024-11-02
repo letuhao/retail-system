@@ -1,9 +1,21 @@
 services:
-  catalogdb:
+  productdb:
+    image: mongo
+
+  shopdb:
     image: postgres
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=ShopDB
+      - POSTGRES_PASSWORD=123456
+      - PGPORT=5432
 
   distributedcache:
     image: redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
   rs.yarpapigateway:
     image: ${DOCKER_REGISTRY-}rsyarpapigateway
@@ -11,11 +23,29 @@ services:
       context: .
       dockerfile: RS.YarpApiGateway/Dockerfile
 
+  rs.userservice:
+    image: ${DOCKER_REGISTRY-}rsuserservice
+    build:
+      context: .
+      dockerfile: RS.UserService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  rs.productservice:
+    image: ${DOCKER_REGISTRY-}rsproductservice
+    build:
+      context: .
+      dockerfile: RS.ProductService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
   rs.shopservice:
     image: ${DOCKER_REGISTRY-}rsshopservice
     build:
       context: .
       dockerfile: RS.ShopService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
   postgres_shop:
