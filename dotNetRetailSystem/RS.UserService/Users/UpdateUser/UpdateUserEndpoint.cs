@@ -29,8 +29,8 @@ namespace RS.UserService.Users.UpdateUser
                 .Produces<UpdateUserResponse>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
-                .WithSummary("Update User")
-                .WithDescription("Update User");
+                .WithSummary("Update User Password")
+                .WithDescription("Update User Password");
         }
     }
 }

@@ -25,6 +25,12 @@ namespace RS.UserService.Users.UpdateUser
             RuleFor(command => command.Args.Address)
                 .NotEmpty().WithMessage("Address is required");
 
+            RuleFor(command => command.Args.DoB)
+                .NotEmpty().WithMessage("DoB is required");
+
+            RuleFor(command => command.Args.Gender)
+                .NotEmpty().WithMessage("Gender is required");
+
             RuleFor(command => command.Args.Phone)
                 .NotEmpty().WithMessage("Phone is required");
             
@@ -49,6 +55,8 @@ namespace RS.UserService.Users.UpdateUser
 
             User.Password = request.Args.Password;
             User.Name = request.Args.Name;
+            User.DoB = request.Args.DoB;
+            User.Gender = request.Args.Gender;
             User.Address = request.Args.Address;
             User.Phone = request.Args.Phone;
             User.Country = request.Args.Country;
