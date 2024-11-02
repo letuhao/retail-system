@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["RS.UserService/RS.UserService.csproj", "RS.UserService/"]
+COPY ["RS.CommonLibrary/RS.CommonLibrary.csproj", "RS.CommonLibrary/"]
 RUN dotnet restore "./RS.UserService/RS.UserService.csproj"
 COPY . .
 WORKDIR "/src/RS.UserService"

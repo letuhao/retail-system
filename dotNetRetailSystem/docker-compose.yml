@@ -11,6 +11,15 @@ services:
       - POSTGRES_PASSWORD=123456
       - PGPORT=5432
 
+  userdb:
+    image: postgres
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=UserDB
+      - POSTGRES_PASSWORD=123456
+      - PGPORT=5433
+
   distributedcache:
     image: redis
     environment:
