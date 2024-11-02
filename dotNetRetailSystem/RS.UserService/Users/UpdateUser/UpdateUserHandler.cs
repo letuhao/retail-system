@@ -1,0 +1,63 @@
+﻿using FluentValidation;
+using JasperFx.Core;
+using Marten;
+using RS.CommonLibrary.CQRS;
+using RS.UserService.Exceptions;
+using RS.UserService.Models;
+
+namespace RS.UserService.Users.UpdateUser
+{
+    public record UpdateUserCommand(UpdateUserCommandArgs Args) : ICommand<UpdateUserResult>;
+
+    public record UpdateUserResult(bool IsSuccess);
+
+    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+    {
+        public UpdateUserCommandValidator()
+        {
+            RuleFor(command => command.Args.Id)
+                .NotEmpty().WithMessage("User ID is required");
+
+            RuleFor(command => command.Args.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .Length(2, 150).WithMessage("Name must be between 2 and 150 characters");
+
+            RuleFor(command => command.Args.Address)
+                .NotEmpty().WithMessage("Address is required");
+
+            RuleFor(command => command.Args.Phone)
+                .NotEmpty().WithMessage("Phone is required");
+            
+            RuleFor(command => command.Args.Country)
+                .NotEmpty().WithMessage("Country is required");
+
+            RuleFor(command => command.Args.Role)
+                .LessThan(0).GreaterThan(4).WithMessage("Role must between 0 - 4");
+        }
+    }
+
+    internal class UpdateUserHandler(IDocumentSession session) : ICommandHandler<UpdateUserCommand, UpdateUserResult>
+    {
+        public async Task<UpdateUserResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        {
+            var User = await session.LoadAsync<User>(request.Args.Id, cancellationToken);
+
+            if (User is null)
+            {
+                throw new UserNotFoundException(request.Args.Id);
+            }
+
+            User.Password = request.Args.Password;
+            User.Name = request.Args.Name;
+            User.Address = request.Args.Address;
+            User.Phone = request.Args.Phone;
+            User.Country = request.Args.Country;
+            User.Role = request.Args.Role;
+
+            session.Update(User);
+            await session.SaveChangesAsync(cancellationToken);
+
+            return new UpdateUserResult(true);
+        }
+    }
+}
