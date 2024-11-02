@@ -9,7 +9,7 @@ namespace RS.ShopService.Products.GetProductById
 
     public record GetProductByIdResult(Product Product);
 
-    internal class GetProductByIdHandler(IDocumentSession session) : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
+    internal class GetShopByIdHandler(IDocumentSession session) : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
     {
         public async Task<GetProductByIdResult> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {

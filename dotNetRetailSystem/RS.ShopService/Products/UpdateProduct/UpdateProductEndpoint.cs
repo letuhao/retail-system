@@ -8,7 +8,7 @@ namespace RS.ShopService.Products.UpdateProduct
 
     public record UpdateProductResponse(bool IsSuccess);
 
-    public class UpdateProductEndpoint : ICarterModule
+    public class UpdateShopEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {

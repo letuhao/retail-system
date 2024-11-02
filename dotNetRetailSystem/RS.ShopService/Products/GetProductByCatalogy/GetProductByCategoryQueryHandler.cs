@@ -8,7 +8,7 @@ namespace RS.ShopService.Products.GetProductByCatalogy
 
     public record GetProductByCategoryResult(IEnumerable<Product> Products);
 
-    internal class GetProductByCategoryQueryHandler(IDocumentSession session) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
+    internal class GetShopByOwnerQueryHandler(IDocumentSession session) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
     {
         public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery request, CancellationToken cancellationToken)
         {

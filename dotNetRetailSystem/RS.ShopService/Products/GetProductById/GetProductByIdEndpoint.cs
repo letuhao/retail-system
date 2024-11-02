@@ -7,7 +7,7 @@ namespace RS.ShopService.Products.GetProductById
 {
     public record GetProductByIdResponse(Product Product);
 
-    public class GetProductByIdEndpoint : ICarterModule
+    public class GetShopByIdEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {

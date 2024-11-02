@@ -13,9 +13,15 @@ namespace RS.ShopService.Shops.CreateShop
     {
         public CreateShopCommandValidator()
         {
-            RuleFor(x => x.Args.Name).NotEmpty().WithMessage("Name is required");
-            RuleFor(x => x.Args.Description).NotEmpty().WithMessage("Description is required");
-            RuleFor(x => x.Args.Owner).NotEmpty().WithMessage("Owner is required");
+            RuleFor(command => command.Args.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .Length(2, 150).WithMessage("Name must be between 2 and 150 characters");
+
+            RuleFor(command => command.Args.Description)
+                .NotEmpty().WithMessage("Description is required");
+
+            RuleFor(command => command.Args.Owner)
+                .NotEmpty().WithMessage("Owner is required");
         }
     }
 
@@ -31,6 +37,8 @@ namespace RS.ShopService.Shops.CreateShop
             {
                 Name = request.Args.Name,
                 Description = request.Args.Description,
+                PhoneNumber = request.Args.PhoneNumber,
+                Address = request.Args.Address,
                 ImageFile = request.Args.ImageFile,
                 Owner = request.Args.Owner
             };
