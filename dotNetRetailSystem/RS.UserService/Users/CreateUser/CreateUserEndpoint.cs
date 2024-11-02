@@ -4,7 +4,7 @@ using MediatR;
 
 namespace RS.UserService.Users.CreateUser
 {
-    public record CreateUserRequest(DeleteUserCommandArgs Args);
+    public record CreateUserRequest(CreateUserCommandArgs Args);
 
     public record CreateUserResponse(Guid Id);
 
