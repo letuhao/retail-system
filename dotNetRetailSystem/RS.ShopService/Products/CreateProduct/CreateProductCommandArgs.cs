@@ -7,7 +7,6 @@
         public string Description { get; set; } = default!;
         public string ImageFile { get; set; } = default!;
         public float Price { get; set; }
-        public int Quantity { get; set; }
         public Guid ShopId { get; set; }
     }
 }

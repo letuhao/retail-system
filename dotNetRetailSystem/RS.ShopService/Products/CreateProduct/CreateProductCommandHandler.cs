@@ -13,11 +13,21 @@ namespace RS.ShopService.Products.CreateProduct
     {
         public CreateProductCommandValidator()
         {
-            RuleFor(x => x.Args.Name).NotEmpty().WithMessage("Name is required");
-            RuleFor(x => x.Args.Description).NotEmpty().WithMessage("Description is required");
-            RuleFor(x => x.Args.Category).NotEmpty().WithMessage("Category is required");
-            RuleFor(x => x.Args.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
-            RuleFor(x => x.Args.ShopId).NotEmpty().WithMessage("ShopId is required");
+            RuleFor(command => command.Args.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .Length(2, 150).WithMessage("Name must be between 2 and 150 characters");
+
+            RuleFor(command => command.Args.Category)
+                .NotEmpty().WithMessage("Category is required");
+
+            RuleFor(command => command.Args.Description)
+                .NotEmpty().WithMessage("Description is required");
+
+            RuleFor(command => command.Args.Price)
+                .GreaterThan(0).WithMessage("Price must be greater than 0");
+
+            RuleFor(command => command.Args.ShopId)
+                .NotEmpty().WithMessage("ShopId is required");
         }
     }
 
@@ -36,7 +46,6 @@ namespace RS.ShopService.Products.CreateProduct
                 Description = request.Args.Description,
                 ImageFile = request.Args.ImageFile,
                 Price = request.Args.Price,
-                Quantity = request.Args.Quantity,
                 ShopId = request.Args.ShopId,
             };
 
