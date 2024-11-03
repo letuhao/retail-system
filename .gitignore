@@ -11,3 +11,5 @@
 /dotNetRetailSystem/RS.UserService/obj
 /dotNetRetailSystem/RS.ProductService/bin
 /dotNetRetailSystem/RS.ProductService/obj
+/ReactNativeRetailApp/node_modules
+/ReactNativeRetailApp/package-lock.json
