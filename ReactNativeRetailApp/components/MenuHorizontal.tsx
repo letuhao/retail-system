@@ -31,7 +31,7 @@ interface MenuHorizontalState {
     active: string | null;
 }
 
-export default class MenuHorizontal extends Component<MenuHorizontalProps, MenuHorizontalState> {
+class MenuHorizontal extends Component<MenuHorizontalProps, MenuHorizontalState> {
     static defaultProps = {
         data: defaultMenu,
         initialIndex: null,
@@ -138,6 +138,8 @@ export default class MenuHorizontal extends Component<MenuHorizontalProps, MenuH
         return <Block style={[styles.container, styles.shadow]}>{this.renderMenu()}</Block>;
     }
 }
+
+export default MenuHorizontal;
 
 const styles = StyleSheet.create({
     container: {

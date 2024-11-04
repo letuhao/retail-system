@@ -7,6 +7,7 @@ import IconExtra from './IconExtra';
 
 // Define the types for the component props
 interface DropDownProps {
+    defaultIndex: number;
     onSelect?: (index: number, value: number | string) => void; // Optional function prop
     style?: ViewStyle; // Optional style prop
     options: (number | string)[]; // Dropdown options

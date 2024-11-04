@@ -9,6 +9,7 @@ import { Button, Block, NavBar, Input, Text, theme } from 'galio-framework';
 
 import IconExtra from './IconExtra';
 import MaterialTheme from '../constants/MaterialTheme';
+import { Route } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () =>
@@ -27,6 +28,7 @@ interface Props {
     tabs?: boolean;
     tabTitleLeft?: string;
     tabTitleRight?: string;
+    scene?: Route<string>;
 }
 
 interface State {

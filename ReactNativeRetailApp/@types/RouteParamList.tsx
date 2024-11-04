@@ -6,4 +6,21 @@ export type RootStackParamList = {
     login: undefined;
     dashboard: { authUser: object };
     tab: { user: object };
+    Pro: undefined;
+    Home: undefined;
+
+    screenComponents: undefined;
+
+    OnboardingStack: undefined;
+    AppStack: undefined;
+    HomeStack: undefined;
+    ProfileStack: undefined;
+    SettingsStack: undefined;
+    ComponentsStack: undefined;
+
+    OnboardingScreen: undefined;
+    HomeScreen: undefined;
+    ProScreen: undefined;
+    ProfileScreen: undefined;
+    SettingsScreen: undefined;
 };

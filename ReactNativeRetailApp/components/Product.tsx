@@ -5,7 +5,6 @@ import { Block, Text, theme } from 'galio-framework';
 const { width } = Dimensions.get('screen');
 
 interface ProductProps {
-    navigation: any;
     product: {
         image: string;
         title: string;
@@ -16,6 +15,7 @@ interface ProductProps {
     style?: object;
     priceColor?: string;
     imageStyle?: object;
+    navigation?: any;
 }
 
 class Product extends Component<ProductProps> {
