@@ -1,0 +1,355 @@
+import React, { Component } from "react";
+import { Animated, Dimensions, Easing } from "react-native";
+import { Block, Text, theme } from "galio-framework";
+import MaterialTheme from "../constants/MaterialTheme";
+import { createStackNavigator, StackNavigationOptions } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+import Images from "../constants/Images";
+import Header from "../components/Header";
+import IconExtra from "../components/IconExtra";
+
+import ScreenComponents from "../components/ScreenComponents";
+import CustomDrawerContent from "./Menu";
+import HomeScreen from "../screens/Home";
+import OnboardingScreen from "../screens/Onboarding";
+import ProScreen from "../screens/Pro";
+import ProfileScreen from "../screens/Profile";
+import SettingsScreen from "../screens/Settings";
+
+const { width } = Dimensions.get("screen");
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+interface Profile {
+    avatar: string;
+    name: string;
+    type: string;
+    plan: string;
+    rating: number;
+}
+
+const profile: Profile = {
+    avatar: Images.Profile,
+    name: "Rachel Brown",
+    type: "Seller",
+    plan: "Pro",
+    rating: 4.8,
+};
+
+class Screens extends Component {
+    ProfileStack() {
+        return (
+            <Stack.Navigator
+                initialRouteName="Profile"
+                screenOptions={{
+                    presentation: "card",
+                    headerMode: "screen",
+                }}
+            >
+                <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{
+                        header: ({ navigation, route }) => (
+                            <Header
+                                white
+                                transparent
+                                title="Profile"
+                                scene={route}
+                                navigation={navigation}
+                            />
+                        ),
+                        headerTransparent: true,
+                    }}
+                />
+            </Stack.Navigator>
+        );
+    }
+
+    SettingsStack() {
+        return (
+            <Stack.Navigator
+                initialRouteName="Settings"
+                screenOptions={{
+                    presentation: "card",
+                    headerMode: "screen",
+                }}
+            >
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsScreen}
+                    options={{
+                        header: ({ navigation, route }) => (
+                            <Header title="Settings" navigation={navigation} scene={route} />
+                        ),
+                    }}
+                />
+            </Stack.Navigator>
+        );
+    }
+
+    ComponentsStack() {
+        return (
+            <Stack.Navigator
+                screenOptions={{
+                    presentation: "card",
+                    headerMode: "screen",
+                }}
+            >
+                <Stack.Screen
+                    name="screenComponents"
+                    component={ScreenComponents}
+                    options={{
+                        header: ({ navigation, route }) => (
+                            <Header title="Components" navigation={navigation} scene={route} />
+                        ),
+                    }}
+                />
+            </Stack.Navigator>
+        );
+    }
+
+    HomeStack() {
+        return (
+            <Stack.Navigator
+                screenOptions={{
+                    presentation: "card",
+                    headerMode: "screen",
+                }}
+            >
+                <Stack.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{
+                        header: ({ navigation, route }) => (
+                            <Header
+                                search
+                                tabs
+                                title="Home"
+                                navigation={navigation}
+                                scene={route}
+                            />
+                        ),
+                    }}
+                />
+                <Stack.Screen
+                    name="Pro"
+                    component={ProScreen}
+                    options={{
+                        header: ({ navigation, route }) => (
+                            <Header
+                                back
+                                white
+                                transparent
+                                title=""
+                                navigation={navigation}
+                                scene={route}
+                            />
+                        ),
+                        headerTransparent: true,
+                    }}
+                />
+            </Stack.Navigator>
+        );
+    }
+
+    AppStack() {
+        return (
+            <Drawer.Navigator
+                drawerContent={(drawerProps) => (
+                    <CustomDrawerContent {...drawerProps} profile={profile} />
+                )}
+                screenOptions={{
+                    drawerStyle: {
+                        backgroundColor: "white",
+                        width: width * 0.8,
+                    },
+                    drawerActiveTintColor: 'white',
+                    drawerInactiveTintColor: '#000',
+                    drawerActiveBackgroundColor: MaterialTheme.COLORS.ACTIVE,
+                    drawerInactiveBackgroundColor: 'transparent',
+                    drawerItemStyle: {
+                        width: width * 0.74,
+                        paddingHorizontal: 12,
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        overflow: 'hidden',
+                    },
+                    drawerLabelStyle: {
+                        fontSize: 18,
+                        fontWeight: 'normal',
+                    },
+                }}
+                initialRouteName="Home"
+            >
+                <Drawer.Screen
+                    name="Home"
+                    component={this.HomeStack}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="shop"
+                                family="Galio"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Woman"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="md-woman"
+                                family="Ionicons"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                                style={{ marginLeft: 4, marginRight: 4 }}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Man"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="man"
+                                family="Entypo"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Kids"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="baby"
+                                family="Galio"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="New Collection"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="grid-on"
+                                family="MaterialIcons"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Profile"
+                    component={this.ProfileStack}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="circle-10"
+                                family="Galio"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Settings"
+                    component={this.SettingsStack}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="gears"
+                                family="FontAwesome"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                                style={{ marginRight: -3 }}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Components"
+                    component={this.ComponentsStack}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="md-switch"
+                                family="Ionicons"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                                style={{ marginRight: 2, marginLeft: 2 }}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Sign In"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="ios-log-in"
+                                family="Ionicons"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name="Sign Up"
+                    component={ProScreen}
+                    options={{
+                        drawerIcon: ({ focused }) => (
+                            <IconExtra
+                                size={16}
+                                name="md-person-add"
+                                family="Ionicons"
+                                color={focused ? "white" : MaterialTheme.COLORS.MUTED}
+                            />
+                        ),
+                    }}
+                />
+            </Drawer.Navigator>
+        );
+    }
+
+    OnboardingStack() {
+        return (
+            <Stack.Navigator
+                screenOptions={{
+                    presentation: "card",
+                    headerShown: false,
+                }}
+            >
+                <Stack.Screen
+                    name="Onboarding"
+                    component={OnboardingScreen}
+                    options={{
+                        headerTransparent: true,
+                    }}
+                />
+                <Stack.Screen name="App" component={this.AppStack} />
+            </Stack.Navigator>
+        );
+    }
+}
+
+export default Screens;
