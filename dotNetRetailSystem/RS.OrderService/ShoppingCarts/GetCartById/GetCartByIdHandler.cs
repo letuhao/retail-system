@@ -3,7 +3,7 @@ using RS.CommonLibrary.CQRS;
 using RS.OrderService.Exceptions;
 using RS.OrderService.Models;
 
-namespace RS.CartService.Carts.GetCartById
+namespace RS.OrderService.ShoppingCarts.GetCartById
 {
     public record GetCartByIdQuery(Guid Id) : IQuery<GetCartByIdResult>;
 

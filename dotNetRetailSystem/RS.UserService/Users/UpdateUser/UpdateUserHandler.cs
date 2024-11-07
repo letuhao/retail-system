@@ -1,9 +1,13 @@
 ﻿using FluentValidation;
 using JasperFx.Core;
 using Marten;
+using Microsoft.AspNetCore.Http;
+using RS.CommonLibrary.Constants;
 using RS.CommonLibrary.CQRS;
+using RS.CommonLibrary.Security.UserUtils;
 using RS.UserService.Exceptions;
 using RS.UserService.Models;
+using RS.UserService.Users.GetUsers;
 
 namespace RS.UserService.Users.UpdateUser
 {
@@ -42,10 +46,16 @@ namespace RS.UserService.Users.UpdateUser
         }
     }
 
-    internal class UpdateUserHandler(IDocumentSession session) : ICommandHandler<UpdateUserCommand, UpdateUserResult>
+    internal class UpdateUserHandler(IDocumentSession session, IHttpContextAccessor httpContextAccessor) : ICommandHandler<UpdateUserCommand, UpdateUserResult>
     {
         public async Task<UpdateUserResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
+            var user = UserUtils.GetCurrentUser(httpContextAccessor);
+            if (user.Role != (int)CommonConstants.USER_ROLE.ADMIN && user.Role != (int)CommonConstants.USER_ROLE.USER)
+            {
+                return new UpdateUserResult(false);
+            }
+
             var User = await session.LoadAsync<User>(request.Args.Id, cancellationToken);
 
             if (User is null)

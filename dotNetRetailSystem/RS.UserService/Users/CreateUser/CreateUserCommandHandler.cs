@@ -5,6 +5,9 @@ using RS.UserService.Users.CreateUser;
 using RS.UserService.Models;
 
 using RS.CommonLibrary.Constants;
+using System.Security.Claims;
+using RS.CommonLibrary.Model;
+using RS.CommonLibrary.Security.Extensions;
 
 namespace RS.UserService.Users.CreateUser
 {
@@ -25,13 +28,13 @@ namespace RS.UserService.Users.CreateUser
         }
     }
 
-    internal class CreateUserCommandHandler(IDocumentSession session) : ICommandHandler<CreateUserCommand, CreateUserResult>
+    internal class CreateUserCommandHandler(IDocumentSession session, IHttpContextAccessor httpContextAccessor) : ICommandHandler<CreateUserCommand, CreateUserResult>
     {
         public async Task<CreateUserResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             //create User entity from command object
             //save to database
-            //return CreateUserResult result               
+            //return CreateUserResult result
 
             var User = new User
             {
@@ -43,7 +46,7 @@ namespace RS.UserService.Users.CreateUser
                 Phone = request.Args.Phone,
                 Email = request.Args.Email,
                 Country = request.Args.Country,
-                Role = CommonConstants.USER_ROLE.GUEST
+                Role = (int)CommonConstants.USER_ROLE.GUEST
             };
 
             //save to database
@@ -53,5 +56,6 @@ namespace RS.UserService.Users.CreateUser
             //return result
             return new CreateUserResult(User.Id);
         }
+
     }
 }

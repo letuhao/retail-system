@@ -2,7 +2,7 @@
 using Mapster;
 using MediatR;
 
-namespace RS.OrderItemService.OrderItems.CreateOrderItem
+namespace RS.OrderService.OrderItems.CreateOrderItem
 {
     public record CreateOrderItemRequest(CreateOrderItemCommandArgs Args);
 

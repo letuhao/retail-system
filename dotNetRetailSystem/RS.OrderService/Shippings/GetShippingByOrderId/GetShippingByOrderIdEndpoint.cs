@@ -13,7 +13,7 @@ namespace RS.OrderService.Shippings.GetShippingByOrderId
         {
             app.MapGet(
                 "/Shippings/OrderId/{OrderId}",
-                async (string OrderId, ISender sender) =>
+                async (Guid OrderId, ISender sender) =>
                 {
                     var result = await sender.Send(new GetShippingByOrderIdQuery(OrderId));
 

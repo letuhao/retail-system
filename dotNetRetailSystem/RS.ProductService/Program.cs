@@ -5,10 +5,14 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Driver;
 using RS.CommonLibrary.Behaviors;
 using RS.CommonLibrary.Exceptions.Handlers;
+using RS.CommonLibrary.Security.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add JWT Authentication from Common Library
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Add MediatR configurations
 var assembly = typeof(Program).Assembly;
@@ -55,6 +59,9 @@ var app = builder.Build();
 app.MapCarter();
 
 app.UseExceptionHandler(options => { });
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHealthChecks("/health",
     new HealthCheckOptions

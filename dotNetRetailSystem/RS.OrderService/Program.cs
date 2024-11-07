@@ -5,10 +5,14 @@ using Marten;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using RS.CommonLibrary.Behaviors;
 using RS.CommonLibrary.Exceptions.Handlers;
+using RS.CommonLibrary.Security.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add JWT Authentication from Common Library
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Add MediatR configurations
 var assembly = typeof(Program).Assembly;
@@ -46,6 +50,9 @@ var app = builder.Build();
 app.MapCarter();
 
 app.UseExceptionHandler(options => { });
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
