@@ -5,3 +5,4 @@ Frontend will build in React.
 
 ## Collaborators
 - [@hoalpk](https://github.com/hoalpk)
+- [@martinnguyen477](https://github.com/martinnguyen477)
